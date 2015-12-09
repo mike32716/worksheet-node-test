@@ -51,14 +51,15 @@ ssc.active_sheet_selector = 'div.active > div.container-fluid.ssc-responsive-she
 //$('#trialDialog').modal('show');
 
 			$('.comments').bind('mouseover', function(event) {
-			    $(this).find('div.tooltip').css({
+			    $(this).find('div.ssc-tooltip').css({
 					    top: event.pageY + 5 + 'px',
 					    left: event.pageX + 5 + 'px'
 				    }).show();
 			    })
 			    .bind('mouseout', function() {
-				    $('div.tooltip').hide();
+				    $('div.ssc-tooltip').hide();  //fix ssc error.   need ssc-tooltip not tooltip.  above too.
 			});
+			
             recalc_onclick('obj');
                var focusCtrl=$('input:not(":hidden,:button,[readonly=readonly],:disabled"),select,a.ui-slider-handle,textarea,a.ui-state-active');			               
 			                                if(focusCtrl!= undefined && focusCtrl.filter(':first').hasClass('form-control')==false){
@@ -509,6 +510,11 @@ ssc.checkIfMSIE = function() {
 						</td>
 						<td class='ee199' style='height:14pt;'><div style='overflow:hidden'></div></td>
 						<td class='ee199' style='height:14pt;'><div style='overflow:hidden'></div></td>
+						
+						
+						
+						
+						
 						<td class='ee201' style='height:14pt;' colspan = '5'>
 							 <div data-panel='slider' id = 'panel-mikesrateslider'>
 							 <input id='mikesrateslider' name='mikesrateslider' type='text' 
@@ -517,6 +523,11 @@ ssc.checkIfMSIE = function() {
 							 value=50.05 class='span2 yes-print'  data-slider-selection='after' data-slider-tooltip='show' data-widgettype='slider' />
 							 </div>
 						</td>
+						
+						
+						
+						
+						
 						<td class='ee100' style='height:14pt;'><div style='overflow:hidden'></div></td>
                     </tr>
                     <tr style='height:4pt'>
