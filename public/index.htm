@@ -20,10 +20,12 @@
         <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
         <script type="text/javascript">
 var ssc=ssc||{};ssc.APPNAME='wsnode';
+
         $(function(){
             var calendar_dateFormats = {};
             var defaultDateFmt = 'm/d/yy';
-ssc.active_sheet_selector = 'div.active > div.container-fluid.ssc-responsive-sheet > div.row > section';
+            ssc.active_sheet_selector = 'div.active > div.container-fluid.ssc-responsive-sheet > div.row > section';
+			
           $('#mikesrateslider').slider({
                 orientation:'horizontal',
                 min:0,
@@ -32,7 +34,15 @@ ssc.active_sheet_selector = 'div.active > div.container-fluid.ssc-responsive-she
                 
                 value: 50.05
             })
-            .on('slideStop', function(s){$('#mikesrateslider').val(s.value);recalc_onclick('mikesrateslider');});
+            .on('slide', function(s){
+			                          $('#mikesrateslider').val(s.value);
+									     
+										 if(s.value %5 == 0) {
+									  recalc_onclick('mikesrateslider');
+									  }
+									  //alert(prp[1]);
+									  
+									});
 
             /*first element with class '.slider-handle.round' is first handle. i.e. prp[0] is first handle of slider and prp[1] is second handle.*/
             var prp = $('.slider-handle.round');
@@ -57,10 +67,10 @@ ssc.active_sheet_selector = 'div.active > div.container-fluid.ssc-responsive-she
 				    }).show();
 			    })
 			    .bind('mouseout', function() {
-				    $('div.ssc-tooltip').hide();  //fix ssc error.   need ssc-tooltip not tooltip.  above too.
+				    $('div.ssc-tooltip').hide();
 			});
-			
-            recalc_onclick('obj');
+            
+			recalc_onclick('obj');
                var focusCtrl=$('input:not(":hidden,:button,[readonly=readonly],:disabled"),select,a.ui-slider-handle,textarea,a.ui-state-active');			               
 			                                if(focusCtrl!= undefined && focusCtrl.filter(':first').hasClass('form-control')==false){
 				                                focusCtrl.filter(':first').focus();
@@ -72,8 +82,13 @@ ssc.checkIfMSIE = function() {
         c = a.indexOf('.NET CLR');
     return !(-1 === b && -1 === c)
 };
+
         </script>
+		
+		
         <style type="text/css" media="print">.no-print,.ui-tabs-nav,.jw-header, .toast, .hideme, .slider-track{display:none;}.ui-widget-content{border:0;}.ui-accordion-content,.jw-content{height:auto!important;}.yes-print{display:block!important;}.ui-state-active{border:1px solid #3385EA!important;}.form-control{margin-top:10px;}</style>
+		
+		
 		<link rel='stylesheet' type='text/css' href='' media='print' id='printallcss' />
     </head>
     <body onload='LoadFromQueryString()'>
@@ -510,24 +525,9 @@ ssc.checkIfMSIE = function() {
 						</td>
 						<td class='ee199' style='height:14pt;'><div style='overflow:hidden'></div></td>
 						<td class='ee199' style='height:14pt;'><div style='overflow:hidden'></div></td>
-						
-						
-						
-						
-						
 						<td class='ee201' style='height:14pt;' colspan = '5'>
-							 <div data-panel='slider' id = 'panel-mikesrateslider'>
-							 <input id='mikesrateslider' name='mikesrateslider' type='text' 
-							 onchange="this.value=eedisplayFloatND(eeparseFloat(this.value),0);
-						    recalc_onclick('mikesrateslider') " 
-							 value=50.05 class='span2 yes-print'  data-slider-selection='after' data-slider-tooltip='show' data-widgettype='slider' />
-							 </div>
+							 <div data-panel='slider' id = 'panel-mikesrateslider'><input id='mikesrateslider' name='mikesrateslider' type='text' value=50.05 class='span2 yes-print'  data-slider-selection='after' data-slider-tooltip='show' data-widgettype='slider' /></div>
 						</td>
-						
-						
-						
-						
-						
 						<td class='ee100' style='height:14pt;'><div style='overflow:hidden'></div></td>
                     </tr>
                     <tr style='height:4pt'>
@@ -570,7 +570,7 @@ ssc.checkIfMSIE = function() {
 						<td class='ee100' style='height:13pt;'><div style='overflow:hidden'></div></td>
 						<td class='ee219' style='height:13pt;' colspan = '3'>
 						    <fieldset id='FS1$LoanProg' style='border:0;padding:0;'>
-							    <select name='LoanProg' id='LoanProg' class='ee220 form-control' style=' width:100% ; padding-left:4px; padding-right:2px;' tabindex='9' onchange="recalc_onclick('LoanProg')" size='1' data-sheet='3' data-row='31' data-col='2'>
+							    <select name='LoanProg' id='LoanProg' class='ee220 form-control' style=' width:100% ; padding-left:4px; padding-right:2px;' tabindex='9' onchange="resetSlider('mikesrateslider', 50.05); recalc_onclick('LoanProg')" size='1' data-sheet='3' data-row='31' data-col='2'>
 									<option  data-value='s:Conventional - 30 Year - Fixed Rate' selected >Conventional - 30 Year - Fixed Rate</option>
 									<option  data-value='s:Conventional - 20 Year - Fixed Rate' >Conventional - 20 Year - Fixed Rate</option>
 									<option  data-value='s:Conventional - 15 Year - Fixed Rate' >Conventional - 15 Year - Fixed Rate</option>
@@ -905,9 +905,18 @@ ssc.checkIfMSIE = function() {
                     </tr>
                     <tr style='height:42pt'>
 						<td class='ee100' style='height:42pt;'>&nbsp;</td>
-						<td class='ee291' style='height:42pt;' colspan = '11'>
-							<textarea id='WarningMessage' class='ee293' style='overflow:auto; border:0px solid #000000; width:100% ;height:100%;min-height:27px;' readonly onchange="recalc_onclick('WarningMessage')" onKeyDown="" name='WarningMessage' placeholder='' tabindex='-1' >""</textarea>
+						
+						
+						
+						
+						
+						<td class='ee291' style='height:52pt;' colspan = '11' >
+							<textarea id='WarningMessage' class='ee293' style='overflow:hide; border:0px solid #000000; width:100% ;height:100%;min-height:27px; margin: 5px; '  readonly onchange="recalc_onclick('WarningMessage')" onKeyDown="" name='WarningMessage' placeholder='' tabindex='-1' >""</textarea>
 						</td>
+						
+						
+						
+						
 						<td class='ee100' style='height:42pt;'>&nbsp;</td>
                     </tr>
                     <tr style='height:14pt'>
@@ -1468,10 +1477,15 @@ function calc(data) {
 		});
 		}
 var co = new Object;
+
+
 function recalc_onclick(ctl) {
   if (true) {
 co['SalePrice']=eeparseFloatTh(document.getElementById('SalePrice').value);co['DownPayment']=eeparseFloatTh(document.getElementById('DownPayment').value);co['SellerContribute']=eeparseFloatTh(document.getElementById('SellerContribute').value);co['REtaxes']=eeparseFloatTh(document.getElementById('REtaxes').value);co['HOA']=eeparseFloatThV(document.getElementById('HOA').value);co['CreditScore']=eeparseFloat(document.getElementById('CreditScore').value);co['Manualinsurance']=eeparseFloatTh(document.getElementById('Manualinsurance').value);co['mikesrateslider']=eeparseFloat(document.getElementById('mikesrateslider').value);co['LoanProg']=eegetdropdownvalue(document.getElementsByName('LoanProg'));calc(co);
 };};
+
+
+//this prints the values to the DOM I assume after getting back from node.js
 function populate(co){document.getElementById('XLEW_3_3_3').value=eedatefmt(fmtdate1,co['XLEW_3_3_3']);document.getElementById('XLEW_3_3_12').value=eedatefmt(fmtdate1,co['XLEW_3_3_12']);document.getElementById('XLEW_3_6_2').value=co['XLEW_3_6_2'];document.getElementById('XLEW_3_8_4').value=co['XLEW_3_8_4'];document.getElementById('XLEW_3_10_6').value=co['XLEW_3_10_6'];document.getElementById('XLEW_3_10_10').value=co['XLEW_3_10_10'];document.getElementById('AmountDown').value=eedatefmt(fmtdate3,co['AmountDown']);document.getElementById('XLEW_3_12_3').value=co['XLEW_3_12_3'];document.getElementById('XLEW_3_12_12').value=eeisnumber(co['XLEW_3_12_12'])?eedatefmt(fmtdate5,co['XLEW_3_12_12']):co['XLEW_3_12_12'];document.getElementById('LoanAmount').value=eedatefmt(fmtdate4,co['LoanAmount']);document.getElementById('XLEW_3_14_3').value=co['XLEW_3_14_3'];
 document.getElementById('PercentDown').value=eedisplayPercentND(co['PercentDown'],1);document.getElementById('LoanToValue').value=eedisplayPercentND(co['LoanToValue'],1);document.getElementById('XLEW_3_16_3').value=co['XLEW_3_16_3'];document.getElementById('XLEW_3_17_6').value=co['XLEW_3_17_6'];document.getElementById('XLEW_3_17_10').value=co['XLEW_3_17_10'];document.getElementById('XLEW_3_17_12').value=co['XLEW_3_17_12'];document.getElementById('XLEW_3_21_10').value=co['XLEW_3_21_10'];document.getElementById('XLEW_3_24_3').value=co['XLEW_3_24_3'];document.getElementById('XLEW_3_25_12').value=eedatefmt(fmtdate4,co['XLEW_3_25_12']);document.getElementById('XLEW_3_30_8').value=eedisplayPercentND(co['XLEW_3_30_8'],3);document.getElementById('XLEW_3_30_10').value=eedisplayPercentND(co['XLEW_3_30_10'],3);document.getElementById('XLEW_3_30_12').value=eedisplayPercentND(co['XLEW_3_30_12'],3);document.getElementById('XLEW_3_34_2').value=co['XLEW_3_34_2'];document.getElementById('XLEW_3_36_8').value=eedatefmt(fmtdate5,co['XLEW_3_36_8']);document.getElementById('XLEW_3_36_10').value=eedatefmt(fmtdate5,co['XLEW_3_36_10']);document.getElementById('XLEW_3_36_12').value=eedatefmt(fmtdate5,co['XLEW_3_36_12']);document.getElementById('XLEW_3_37_2').value=co['XLEW_3_37_2'];document.getElementById('XLEW_3_37_8').value=eeisnumber(co['XLEW_3_37_8'])?eedatefmt(fmtdate5,co['XLEW_3_37_8']):co['XLEW_3_37_8'];document.getElementById('XLEW_3_37_10').value=eeisnumber(co['XLEW_3_37_10'])?eedatefmt(fmtdate5,co['XLEW_3_37_10']):co['XLEW_3_37_10'];
 document.getElementById('XLEW_3_37_12').value=eeisnumber(co['XLEW_3_37_12'])?eedatefmt(fmtdate5,co['XLEW_3_37_12']):co['XLEW_3_37_12'];document.getElementById('XLEW_3_38_8').value=eedatefmt(fmtdate5,co['XLEW_3_38_8']);document.getElementById('XLEW_3_38_10').value=eedatefmt(fmtdate5,co['XLEW_3_38_10']);document.getElementById('XLEW_3_38_12').value=eedatefmt(fmtdate5,co['XLEW_3_38_12']);document.getElementById('XLEW_3_39_8').value=eedatefmt(fmtdate5,co['XLEW_3_39_8']);document.getElementById('XLEW_3_39_10').value=eedatefmt(fmtdate5,co['XLEW_3_39_10']);document.getElementById('XLEW_3_39_12').value=eedatefmt(fmtdate5,co['XLEW_3_39_12']);document.getElementById('XLEW_3_40_8').value=eedatefmt(fmtdate5,co['XLEW_3_40_8']);document.getElementById('XLEW_3_40_10').value=eedatefmt(fmtdate5,co['XLEW_3_40_10']);document.getElementById('XLEW_3_40_12').value=eedatefmt(fmtdate5,co['XLEW_3_40_12']);document.getElementById('XLEW_3_41_8').value=eedatefmt(fmtdate5,co['XLEW_3_41_8']);document.getElementById('XLEW_3_41_10').value=eedatefmt(fmtdate5,co['XLEW_3_41_10']);document.getElementById('XLEW_3_41_12').value=eedatefmt(fmtdate5,co['XLEW_3_41_12']);document.getElementById('XLEW_3_42_8').value=eedatefmt(fmtdate5,co['XLEW_3_42_8']);document.getElementById('XLEW_3_42_10').value=eedatefmt(fmtdate5,co['XLEW_3_42_10']);document.getElementById('XLEW_3_42_12').value=eedatefmt(fmtdate5,co['XLEW_3_42_12']);document.getElementById('XLEW_3_46_8').value=eedatefmt(fmtdate8,co['XLEW_3_46_8']);document.getElementById('XLEW_3_46_10').value=eedatefmt(fmtdate8,co['XLEW_3_46_10']);
@@ -1485,11 +1499,15 @@ document.getElementById('XLEW_3_67_8').value=eedatefmt(fmtdate8,co['XLEW_3_67_8'
     });
 }
 };
+
+
 function TriggerOnchange(hiddenId)
 {
     var e = jQuery.Event('change');
     $('#'+hiddenId).trigger(e);
 }
+
+
 var eeisus=1;var eetrue="TRUE";var eefalse="FALSE";var eedec=".";var eeth=",";var eedecreg=new RegExp("\\.","g");var eethreg=new RegExp(",","g");var eecurrencyreg=new RegExp("[$]","g");var eepercentreg=new RegExp("%","g"); var fmtdaynamesshort=new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat"); var fmtdaynameslong=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"); var fmtmonthnamesshort=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"); var fmtmonthnameslong=new Array("January","February","March","April","May","June","July","August","September","October","November","December"); var fmtstrings=new Array("/","$"); var fmtdate1=[2,32,6,32,11]; var fmtdate2=[33,25,0]; var fmtdate3=[33,25,0]; var fmtdate4=[33,25,0]; var fmtdate5=[33,25,0]; var fmtdate6=[33,25,2]; var fmtdate7=[33,25,2]; var fmtdate8=[33,25,0]; var fmtdate9=[33,25,0];
 function str_eq(x,y){if(isNaN(x)&&isNaN(y))return(x.toLowerCase()==y.toLowerCase());else return x==y;};
 
