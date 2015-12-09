@@ -1,0 +1,48 @@
+/* =Anchors: remove formatting from anchors. */
+a
+{
+	color:inherit;text-decoration:none!important;
+}
+
+a:link,a:visited
+{
+	text-decoration:none;
+}
+
+body
+{
+	background:white;color:black;font:11pt;
+}
+
+/* =Tabs */
+.tab-content .tab-pane{
+	display:block!important;
+}
+.tab-pane{
+	page-break-after:always;
+}
+.tab-pane:last-child{
+	page-break-after:auto;
+}
+
+/* =Accordion + Panel: inline style display:none is added to hidden sheet div so need to show them in print all. */
+.panel-default .panel-collapse{
+	display:block!important;
+}
+.panel-collapse{	
+	page-break-after:always!important;
+}
+.panel-collapse:last-child{
+	page-break-after:auto;
+}
+.panel-heading{display: none!important;}
+
+/* =Wizard: inline style display:none is added to hidden sheet div so need to show them in print all.*/
+.jw-step{
+	display:block!important;
+	page-break-after:always;	
+}
+.jw-step:last-child{
+{
+	page-break-after:auto;
+}
